@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | JYRA HUB</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="nav.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="logo">JYRA HUB</div>
+    <nav class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/login" id="signin">SignIn</a>
+        <a href="/signup" id="signup">SignUp</a>
+        <a href="#" id="signout">Sign Out</a>
+        <a href="/contact">Contact Us</a>
+        <a href="/aboutus">About Us</a>
+      </nav>
+  </header>
+
+  <!-- Main Section -->
+  <main class="content" style="display: none;" id="content">
+    <h2>Task Board</h2>
+
+    <section class="task-grid" id="dashboardTaskGrid">
+      <!-- Tasks will be dynamically injected here -->
+    </section>
+
+    <a href="addnewTask.html" ><button class="addtask">Add New Task</button></a>
+
+    <div id="toast" class="toast"></div>
+  </main>
+
+  <center><img id="todoimage" src="task-manager-vector-design-concept.webp" width="90%" /></center>
+
+  <!-- Footer section -->
+   <footer>
+    <div class="contac">
+      <div class="location">
+      <img src="location.png" alt="location" height="40px"/>
+      <p class="white">9863 - 9867 Mill Road
+        <span>Cambridge, MG09 99HT</span>
+      </p>
+      
+      </div>
+      <div class="mobile">
+      <img src="phone-call.png" alt="mono" height="40px"/>
+      <p class="white">+1 800 603 6035</p>
+      </div>
+      <div class="email">
+      <img src="email.png" alt="email" height="40px"/>
+      <p class="white">mail@htmlsite.org</p>
+      <p></p>
+      </div>
+    </div>
+    <div class="quicklinks">
+      <p class="white quik">quicklinks</p>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="aboutus.html">About Us</a>
+    </div>
+    <div class="socialMedia">
+      <img src="facebook.png" alt="facebook" height="40px"/>
+      <img src="github.png" alt="github" height="40px"/>
+      <img src="linkedin.png" alt="linkedin" height="40px"/>
+      <img src="twitter.png" alt="twitter" height="40px"/>
+    </div>
+   </footer>
+
+   <script src="script.js"></script>
+
+  <script>
+
+    let content = document.getElementById("content");
+    let todoimage = document.getElementById("todoimage");
+    if (JSON.parse(localStorage.getItem('isLogin'))) {
+      content.style.display = "block";
+      todoimage.style.display = "none";
+    } else {
+      content.style.display = "none";
+      todoimage.style.display = "block";
+    }
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const dashboardTaskGrid = document.getElementById("dashboardTaskGrid");
+
+    const priorityColors = {
+      "P0": "#ffe96f",
+      "P1": "#b6f1c0",
+      "P2": "#c8dfff"
+    };
+
+    const statusColors = {
+      "PENDING": "#ffe96f",
+      "COMPLETED": "#b6f1c0",
+      "IN PROGRESS": "#c8dfff"
+    };
+
+    function renderDashboardTasks() {
+      dashboardTaskGrid.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const priority = task.priority.toUpperCase();
+        const status = task.status.toUpperCase();
+
+        const card = document.createElement("div");
+        card.classList.add("task-card");
+        card.innerHTML = `
+          <div class="task-header">
+            <h3>${task.title}</h3>
+            <span class="priority" style="background-color: ${priorityColors[priority] || "#e0e0e0"}">${priority}</span>
+          </div>
+          <p>${task.description}</p>
+          <div class="task-dates">
+            <span><strong>Start:</strong> ${task.startDate}</span>
+            <span><strong>End:</strong> ${task.endDate}</span>
+          </div>
+          <div class="task-footer">
+            <span>${task.author || "JYRA HUB"}</span>
+            <span class="status completed" style="background-color: ${statusColors[status] || "#e0e0e0"}; color: #000">${status}</span>
+          </div>
+          <div class="task-actions">
+            <button onclick="editTask(${index})" title="Edit Task">✏️</button>
+            <button onclick="deleteTask(${index})" title="Delete Task">🗑️</button>
+          </div>
+        `;
+        dashboardTaskGrid.appendChild(card);
+      });
+    }
+
+    function deleteTask(index) {
+      if (confirm("Are you sure you want to delete this task?")) {
+        tasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        renderDashboardTasks();
+        showToast("Task deleted successfully ✅", "success");
+      }
+    }
+
+    function editTask(index) {
+      const task = tasks[index];
+      const newTitle = prompt("Update Title:", task.title);
+      const newDesc = prompt("Update Description:", task.description);
+      const newStatus = prompt("Update Status (Pending, Completed, In Progress):", task.status);
+      const newPriority = prompt("Update Priority (P0, P1, P2):", task.priority);
+      const newStart = prompt("Update Start Date:", task.startDate);
+      const newEnd = prompt("Update End Date:", task.endDate);
+
+      if (newTitle || newDesc || newStatus || newPriority || newStart || newEnd) {
+        tasks[index] = {
+          title: newTitle || task.title,
+          description: newDesc || task.description,
+          status: newStatus || task.status,
+          priority: newPriority || task.priority,
+          startDate: newStart || task.startDate,
+          endDate: newEnd || task.endDate
+        };
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        renderDashboardTasks();
+        showToast("Task updated successfully ✅", "success");
+      } else {
+        showToast("No changes made to the task ⚠️", "info");
+      }
+    }
+
+    function showToast(message, type = "info") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = `toast show ${type}`;
+      setTimeout(() => {
+        toast.className = "toast";
+      }, 3000);
+    }
+
+    renderDashboardTasks();
+
+  </script>
+</body>
+</html>

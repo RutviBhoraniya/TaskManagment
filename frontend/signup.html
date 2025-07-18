@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav.css"/>
+</head>
+<body> 
+<header class="main-header">
+    <div class="logo">JYRA HUB</div>
+    </nav>
+  </header>
+<div class="gradient-bg">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <form id="signup" action="signup" method="post">
+            <input type="text" placeholder="Name" name="name" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <button type="submit" class="btn blue">SignUp</button>
+            <p>Already have an account?  <a href="/login">Login</a></p>
+        </form>
+    </div>
+</div>
+    <script src="script.js"></script>
+    <!-- <script>
+            let form = document.getElementById("signup")
+            form.addEventListener("submit",()=>{
+                alert("Account created successfully!");
+                form.action = "login.html";
+            })
+    </script> -->
+</body>
+</html>

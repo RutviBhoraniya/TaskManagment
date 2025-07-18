@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav.css">
+</head>
+<body>
+    <header class="main-header">
+    <div class="logo">JYRA HUB</div>
+    </nav>
+  </header>
+<div class="gradient-bg">
+    <div class="auth-card">
+        <h2>Login To JYRA HUB</h2>
+        <form id="login" action="login" method="post">
+            <p id="invalid" style="color: red;"></p>
+            <input type="email" placeholder="Email" id="email" name="email" required>
+            <input type="password" placeholder="Password" id="password" name="password" required>
+            <button type="submit" class="btn blue">Login</button>
+            <p>Don't have an account?  <a href="/signup">Sign Up</a></p>
+        </form>
+    </div>
+</div>
+    <script src="script.js"></script>
+    <!-- <script>
+            let form = document.getElementById("login")
+            let email = document.getElementById("email")
+            let password = document.getElementById("password")
+            let invalid = document.getElementById("invalid")
+            form.addEventListener("submit",(e)=>{
+                if(email.value=="abcd123@gmail.com" && password.value=="12345678"){
+                    alert("Logged in successfully!");
+                    form.action = "dashboard.html";
+                    localStorage.setItem('isLogin', JSON.stringify(true));
+                }else{
+                    invalid.textContent = "invalid email or password"
+                    e.preventDefault()
+                }
+            })
+    </script> -->
+</body>
+</html>

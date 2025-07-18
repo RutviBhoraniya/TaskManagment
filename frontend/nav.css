@@ -1,0 +1,74 @@
+/* Header */
+.main-header {
+   background: linear-gradient(120deg, #8e44ad, #3498db);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ffe600;
+}
+
+/* footer */
+footer{
+  background:linear-gradient(120deg, #8e44ad, #3498db);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.contac{
+  padding: 10px;
+}
+.location,.mobile,.email{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.location > p > span{
+  display: block;
+  font-weight: 600;
+}
+.white{
+  color: white;
+}
+.quicklinks{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+  align-items: center;
+}
+.quik{
+  font-size: 22px;
+  font-weight: bold;
+}
+.quicklinks > a{
+  color: white;
+  text-decoration: none;
+}
+.socialMedia{
+  display: flex;
+  padding: 30px;
+  gap: 25px;
+}

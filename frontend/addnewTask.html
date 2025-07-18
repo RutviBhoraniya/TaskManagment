@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Task | JYRA HUB</title>
+  <link rel="stylesheet" href="addtask.css" />
+  <link rel="stylesheet" href="nav.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="logo">JYRA HUB</div>
+      <nav class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/login" id="signin">SignIn</a>
+        <a href="/signup" id="signup">SignUp</a>
+        <a href="#" id="signout">Sign Out</a>
+        <a href="/contact">Contact Us</a>
+        <a href="/aboutus">About Us</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="form-container">
+        <h2>Add New Task</h2>
+        <form id="taskForm">
+          <label>Title</label>
+          <input type="text" id="title" placeholder="Task Title" required />
+
+          <label>Description</label>
+          <textarea id="description" placeholder="Task Description" required></textarea>
+
+          <div class="row">
+            <div class="field">
+              <label>Start Date</label>
+              <input type="date" id="startDate" required />
+            </div>
+            <div class="field">
+              <label>End Date</label>
+              <input type="date" id="endDate" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Status</label>
+              <input type="text" id="status" placeholder="Pending" required />
+            </div>
+            <div class="field">
+              <label>Priority</label>
+              <input type="text" id="priority" placeholder="P0" required />
+            </div>
+          </div>
+
+          <button type="submit">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer section -->
+   <footer>
+    <div class="contac">
+      <div class="location">
+      <img src="location.png" alt="location" height="40px"/>
+      <p class="white">9863 - 9867 Mill Road
+        <span>Cambridge, MG09 99HT</span>
+      </p>
+      
+      </div>
+      <div class="mobile">
+      <img src="phone-call.png" alt="mono" height="40px"/>
+      <p class="white">+1 800 603 6035</p>
+      </div>
+      <div class="email">
+      <img src="email.png" alt="email" height="40px"/>
+      <p class="white">mail@htmlsite.org</p>
+      <p></p>
+      </div>
+    </div>
+    <div class="quicklinks">
+      <p class="white quik">quicklinks</p>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="aboutus.html">About Us</a>
+    </div>
+    <div class="socialMedia">
+      <img src="facebook.png" alt="facebook" height="40px"/>
+      <img src="github.png" alt="github" height="40px"/>
+      <img src="linkedin.png" alt="linkedin" height="40px"/>
+      <img src="twitter.png" alt="twitter" height="40px"/>
+    </div>
+   </footer>
+
+  <!-- Script -->
+  <script>
+    document.getElementById('taskForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const task = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value,
+        status: document.getElementById('status').value,
+        priority: document.getElementById('priority').value
+      };
+
+      const existingTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      existingTasks.push(task);
+      localStorage.setItem('tasks', JSON.stringify(existingTasks));
+
+      window.location.href = 'dashboard.html'; // Redirect to home
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
